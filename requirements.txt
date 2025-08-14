@@ -1,0 +1,8 @@
+streamlit
+Pillow
+google-generativeai
+bcrypt # for password hashing
+requests
+beautifulsoup4
+langchain
+duckduckgo-search==8.1.1
