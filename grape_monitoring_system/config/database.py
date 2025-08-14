@@ -40,25 +40,20 @@ def init_db():
                 disease_detected TEXT,
                 confidence_score REAL,
                 analysis_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                gemini_response TEXT,
-                detailed_description TEXT,
-                possible_causes TEXT,
-                immediate_actions TEXT,
-                FOREIGN KEY (user_id) REFERENCES users (id)
+                gemini_response TEXT
             )
         """)
         cursor.execute("PRAGMA table_info(analyses);")
         analyses_columns = [col[1] for col in cursor.fetchall()]
-        # The following ALTER TABLE statements are removed as columns are now included in CREATE TABLE
-        # if 'detailed_description' not in analyses_columns:
-        #     cursor.execute("ALTER TABLE analyses ADD COLUMN detailed_description TEXT;")
-        #     print("Database: Added 'detailed_description' to analyses table.")
-        # if 'possible_causes' not in analyses_columns:
-        #     cursor.execute("ALTER TABLE analyses ADD COLUMN possible_causes TEXT;")
-        #     print("Database: Added 'possible_causes' to analyses table.")
-        # if 'immediate_actions' not in analyses_columns:
-        #     cursor.execute("ALTER TABLE analyses ADD COLUMN immediate_actions TEXT;")
-        #     print("Database: Added 'immediate_actions' to analyses table.")
+        if 'detailed_description' not in analyses_columns:
+            cursor.execute("ALTER TABLE analyses ADD COLUMN detailed_description TEXT;")
+            print("Database: Added 'detailed_description' to analyses table.")
+        if 'possible_causes' not in analyses_columns:
+            cursor.execute("ALTER TABLE analyses ADD COLUMN possible_causes TEXT;")
+            print("Database: Added 'possible_causes' to analyses table.")
+        if 'immediate_actions' not in analyses_columns:
+            cursor.execute("ALTER TABLE analyses ADD COLUMN immediate_actions TEXT;")
+            print("Database: Added 'immediate_actions' to analyses table.")
         print("Database: analyses table checked/created.")
 
         # Recommendations table
